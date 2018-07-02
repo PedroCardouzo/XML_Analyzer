@@ -1,42 +1,5 @@
 import xml.etree.ElementTree as ET
-from XMLExtractorException import *
-from collections import namedtuple
-
-# namedtuple(String, String, Comparison, builtin_function_or_method, String)
-#       where builtin_function_or_method is a comparison function
-ConditionalTuple = namedtuple("ConditionalTuple", "candidate, field, comp, value")
-
-def main():
-    templ = """<?xml version="1.0"?>
-<template_name>
-    <compensation_information>
-        <paycompensation_recurring>
-            '<end_date></end_date>
-            <start_date></start_date>
-            <pay_component></pay_component>
-            <paycompvalue></paycompvalue>
-        </paycompensation_recurring>
-    </compensation_information>
-</template_name>
-"""
-
-    try:
-        xml_tree = ET.ElementTree()
-        xml_tree.parse('SAP_XMLs/in.xml')
-        extracted_xml = extract_from_xml(ET.fromstring(templ), xml_tree.getroot())
-        extracted_xml = fuse_into_old_xml(extracted_xml, xml_tree.getroot())
-    except NotChildOfSameParentException as e:
-        print(e)
-    # test = extracted_xml.findall('.//address_information')
-    # print("final test::")
-    # for this in test:
-    #     print([x.tag if x.tag != 'test_out' else x[0].tag for x in this])
-    #     print([x.tag if x.tag != 'test_out' else x[0].tag for x in this])
-
-    xml_tree = ET.ElementTree(extracted_xml)
-    xml_tree.write('SAP_XMLs/out2.xml')
-
-    pass
+from src.XMLExtractorException import *
 
 
 def fuse_into_old_xml(extracted_xml_portion, xml):
@@ -128,17 +91,3 @@ def extract_directly_from_section(template, xml):
             return new_el
 
 
-def filter_xml(conditions, xml):
-    for cond in conditions:
-        sub_xml = xml.find(".//" + cond.candidate + "/..")  # finds parent of cond.candidate
-        for child in sub_xml:
-            if not make_cond(cond)(child):
-                sub_xml.remove(child)
-
-
-def make_cond(cond):
-    return lambda x: cond.cond(x.find(".//" + cond.field).text, cond.value)
-
-
-if __name__ == '__main__':
-    main()
