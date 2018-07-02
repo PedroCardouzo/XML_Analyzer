@@ -22,8 +22,9 @@ def main():
 
     try:
         xml_tree = ET.ElementTree()
-        xml_tree.parse('in.xml')
-        extracted_xml = extract_from_xml(ET.fromstring(templ), xml_tree.getroot(), False)
+        xml_tree.parse('SAP_XMLs/in.xml')
+        extracted_xml = extract_from_xml(ET.fromstring(templ), xml_tree.getroot())
+        extracted_xml = fuse_into_old_xml(extracted_xml, xml_tree.getroot())
     except NotChildOfSameParentException as e:
         print(e)
     # test = extracted_xml.findall('.//address_information')
@@ -33,14 +34,29 @@ def main():
     #     print([x.tag if x.tag != 'test_out' else x[0].tag for x in this])
 
     xml_tree = ET.ElementTree(extracted_xml)
-    xml_tree.write('out.xml')
+    xml_tree.write('SAP_XMLs/out2.xml')
 
     pass
 
 
+def fuse_into_old_xml(extracted_xml_portion, xml):
+
+    # extracted_xml_portion should be the parent of all the first-level template elements
+    parent = xml.find('.//' + extracted_xml_portion.tag)
+
+    # remove all children from parent node
+    for x in list(parent):  # do not iterate over the list you're modifying, therefore, list(parent)
+        parent.remove(x)
+
+    for x in extracted_xml_portion:
+        parent.append(x)
+
+    return xml
+
+
 # extract_from_xml :: Element Element Boolean | context: xml.etree.ElementTree.Element
 # template should be the tag that is the template name in the template xml
-def extract_from_xml(template, xml, full_xml):
+def extract_from_xml(template, xml):
     # todo: find better name or comment explaining
     set_of_parents = set()
     data = []
@@ -63,23 +79,12 @@ def extract_from_xml(template, xml, full_xml):
 
     parent = xml.find('.//' + next(iter(set_of_parents)))  # set_of_parents should contain only one parent
 
-    if full_xml:
-        # remove all children from parent node
-        for x in list(parent):
-            parent.remove(x)
+    extracted_xml_portion = ET.Element(parent.tag)
+    extracted_xml_portion.text = parent.text
+    for x in data:
+        extracted_xml_portion.append(x)
 
-        for x in data:
-            parent.append(x)
-
-        return xml
-    else:
-        extracted_xml_portion = ET.Element(parent.tag)
-        extracted_xml_portion.text = parent.text
-        for x in data:
-            extracted_xml_portion.append(x)
-
-        return extracted_xml_portion
-
+    return extracted_xml_portion
 
 
 # todo: handle exception that will occur when trying to access a set of tags when xml actually have a value
