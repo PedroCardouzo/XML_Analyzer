@@ -1,19 +1,4 @@
-from src.XMLExtractorException import *
-
-
-def find_first_common_parent(xml, tag):
-    candidates = xml.findall('.//' + tag)
-    acc = '/..'
-    while len(candidates) > 1:
-        candidates = xml.findall('.//' + tag + acc)
-        acc += '/..'
-
-    # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
-    top_level = candidates[0]
-    if top_level is None:
-        raise NoUniqueRootElementException(candidates)
-    else:
-        return top_level
+from src.XMLUtil import find_first_common_parent
 
 
 # filter_xml_tree :: [ConditionalTuple] Element -> Element
@@ -22,13 +7,11 @@ def find_first_common_parent(xml, tag):
 # receives a list of conditions and an Element, it then proceeds to filter the xml as so
 # every ConditionalTuple.candidate which contains an ConditionalTuple.field that when applied
 # ConditionalTuple.cond(ConditionalTuple.field, ConditionalTuple.value) returns false do not appear on output
-# todo: might leave empty tags, so I should do a cleanup function, probably as an option on "indent xml"
 def filter_xml_tree(conditions, xml):
     for cond in conditions:
 
         top_level = find_first_common_parent(xml, cond.candidate)
 
-        # todo: test -> seems like i could just send xml directly instead of child
         for child in top_level:
             filter_xml(cond, child, top_level)
 

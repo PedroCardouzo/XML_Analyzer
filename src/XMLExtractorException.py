@@ -16,6 +16,11 @@ class NotChildOfSameParentException(XMLExtractorException):
         self.message = "not all top level elements in the template '" \
                        + template_tag + "' are child of the parent '" + parent_tag + "'"
 
-class NoUniqueRootElementException():
+class NoUniqueRootElementException:
     def __init__(self, top_level_elements):
         self.message = "There are multiple elements in the first level of the xml, namely: " + str(top_level_elements)
+
+
+class NoCommonParentInTemplateTopLevelException:
+    def __init__(self, elements):
+        self.message = "The elements '" + str(elements) + "' do not have a common parent"
