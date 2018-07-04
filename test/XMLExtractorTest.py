@@ -7,10 +7,6 @@ import xml.dom.minidom
 import re
 from src.XMLUtil import xml_to_string
 
-
-
-
-
 def test__extract_from_xml():
     templ = """<?xml version="1.0"?>
     <template_name>
