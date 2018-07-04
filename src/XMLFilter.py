@@ -1,5 +1,21 @@
 from src.XMLExtractorException import *
 
+
+def find_first_common_parent(xml, tag):
+    candidates = xml.findall('.//' + tag)
+    acc = '/..'
+    while len(candidates) > 1:
+        candidates = xml.findall('.//' + tag + acc)
+        acc += '/..'
+
+    # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
+    top_level = candidates[0]
+    if top_level is None:
+        raise NoUniqueRootElementException(candidates)
+    else:
+        return top_level
+
+
 # filter_xml_tree :: [ConditionalTuple] Element -> Element
 # high level description: receives a list that represents a series of conditions to filter the XML
 # low level:
@@ -10,24 +26,10 @@ from src.XMLExtractorException import *
 def filter_xml_tree(conditions, xml):
     for cond in conditions:
 
-        # todo: from here
-        candidates = xml.findall('.//' + cond.candidate)
-        acc = '/..'
-        while len(candidates) > 1:
-            candidates = xml.findall('.//' + cond.candidate + acc)
-            acc += '/..'
-
-        # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
-        top_level = candidates[0]
-        if top_level is None:
-            raise NoUniqueRootElementException(candidates)
-
-        # todo: up to here -> transform this into an encapsulated function that returns a reference to the "top level"
-        # todo: f(tag, xml) -> deepest element that contains all occurrences of tag in XML
+        top_level = find_first_common_parent(xml, cond.candidate)
 
         # todo: test -> seems like i could just send xml directly instead of child
-        # wait, actually shouldn't it be for child in top_level: ? test this later
-        for child in xml:
+        for child in top_level:
             filter_xml(cond, child, top_level)
 
     return xml
