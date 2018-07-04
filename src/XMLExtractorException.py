@@ -1,6 +1,6 @@
 class XMLExtractorException(Exception):
     def __init__(self):
-        self.message = "An exception in the XML extraction ocurred"
+        self.message = "An exception in the XML extraction occurred"
 
     def __str__(self):
         return self.message
