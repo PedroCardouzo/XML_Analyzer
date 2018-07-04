@@ -24,15 +24,20 @@ def extract_from_xml(template, xml):
     set_of_parents = set()
     data = []
     for repeating_structure in template:
+
+        # maybe "find_top_level" will replace this
+
         root = xml.find(".//" + repeating_structure.tag + "/..")
         set_of_parents.add(root.tag)
         if len(set_of_parents) > 1:
             raise NotChildOfSameParentException(template.tag, root.tag)
 
+        # up to here
+
         for xml_section in root:
 
-            # weird exception is thrown in the case I sent the output of extract_directly_from_section to a variable
-            # in case I print it, for example, not exception is thrown (only in debugging mode)
+            # (only in debugging mode): weird exception is thrown in the case I sent the output of
+            # extract_directly_from_section to a variable. In case I print it, for example, no exception is thrown
             this = extract_directly_from_section([repeating_structure], xml_section)
 
             if this is not None:
@@ -69,7 +74,7 @@ def extract_directly_from_section(template, xml):
         return None
     else:
         if len(templ) == 1:
-            templ = templ[0]  # templ have only 1 element, therefore this makes it clearer to access
+            templ = templ[0]  # templ has only 1 element, therefore we can unwrap it
         else:
             # templ has more than one element, this is not supposed to happen
             raise DuplicateTagInTemplateException(xml.tag)
