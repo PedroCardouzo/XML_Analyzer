@@ -1,4 +1,4 @@
 SAP_XMLs/*
-work_area/in.xml
-work_area/out.xml
-work_area/outr.xml
+App/work_area/in.xml
+App/work_area/out.xml
+App/work_area/outr.xml
