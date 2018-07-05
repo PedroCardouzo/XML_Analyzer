@@ -1,0 +1,14 @@
+missing module named 'org.python' - imported by pickle
+missing module named _subprocess - imported by subprocess
+missing module named msvcrt - imported by subprocess
+missing module named riscosenviron - imported by os
+missing module named riscospath - imported by os
+missing module named riscos - imported by os
+missing module named ce - imported by os
+missing module named _emx_link - imported by os
+missing module named os2 - imported by os
+missing module named nt - imported by os, ntpath
+missing module named org - imported by copy
+missing module named 'src.XMLExtractorException' - imported by /home/pedrozardo/Desktop/programming/XML_Analyzer/src/Main.py
+missing module named 'src.CommandLineInterfaceException' - imported by /home/pedrozardo/Desktop/programming/XML_Analyzer/src/Main.py
+missing module named src - imported by /home/pedrozardo/Desktop/programming/XML_Analyzer/src/Main.py

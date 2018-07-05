@@ -1,5 +1,5 @@
-from src.XMLFilter import *
-from src.Structures import ConditionalTuple
+from XMLFilter import *
+from Structures import ConditionalTuple
 import xml.etree.ElementTree as ET
 import operator
 import constants
