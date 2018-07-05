@@ -24,3 +24,13 @@ class NoUniqueRootElementException(XMLExtractorException):
 class NoCommonParentInTemplateTopLevelException(XMLExtractorException):
     def __init__(self, elements):
         self.message = "The elements '" + str(elements) + "' do not have a common parent"
+
+
+class NotUniqueTemplateException(XMLExtractorException):
+    def __init__(self, template_name):
+        self.message = "Template '" + template_name + "' is not unique. Please make sure that template names are unique"
+
+
+class TemplateNotFoundException(XMLExtractorException):
+    def __init__(self, template_name):
+        self.message = "Inside template '" + + template_name + "' the 'template' tag was not found"

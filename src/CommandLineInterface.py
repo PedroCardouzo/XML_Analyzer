@@ -7,6 +7,7 @@ from src.Structures import ConditionalTuple
 import src.XMLExtractor as XMLExtractor
 import src.XMLFilter as XMLFilter
 import src.XMLUtil as XMLUtil
+import src.CommandLineOperators as CommandLineOperators
 import operator
 
 syntax_help = """
@@ -40,6 +41,8 @@ extract from <source_file> using <template_file> to <output_file>
 # filters from <source_file> the occurrences of <candidate> which do not pass the restraining '<field> <comp> <value>'
 filter <source_file> to <output_file> removing <candidate> if <field> <comp> <value> is false
 $ <source_file> <output_file> <candidate> <field> <comp> <value>  # shortcut for the above
+    where
+        <comp> is the comparison operator operator, which can be ==, =, !=, /=, >, >=, <, <=
 # example: filter in.xml to out.xml removing b if x != 5 is false
 ------------------ in.xml ------------------
 <root>
@@ -82,7 +85,7 @@ def parse(input_string):
 def call_extraction(args):
     try:
         input_file = args[0]
-        template_file = args[1]
+        template_name = args[1]
         output_file = args[2]
 
         # we wont limit passing more than 3 arguments.
@@ -93,10 +96,9 @@ def call_extraction(args):
     xml_tree = ElementTree()
     xml_tree.parse(constants.base_filepath + input_file)
 
-    template_tree = ElementTree()
-    template_tree.parse(constants.base_filepath + template_file)
+    template = XMLUtil.Template(template_name)
 
-    extracted_xml = XMLExtractor.extract_template_data_from_xml(template_tree.getroot(), xml_tree.getroot())
+    extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree.getroot())
 
     out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True)
 
@@ -114,21 +116,14 @@ def parse_for_call_extraction(input_string):
 
     call_extraction(args)
 
-
-def get_comp_function_from_string(string):
-    if string == '==' or string == '=':
-        return operator.eq
-    else:
-        return lambda x, y: False
-
-
 def call_filter(args):
     try:
         input_file = args[0]
         output_file = args[1]
         candidate = args[2]
         field = args[3]
-        comp = get_comp_function_from_string(args[4])
+        # if you want to add comparison functions, take a look at src/CommandLineOperators.py
+        comp = CommandLineOperators.get_comp_function_from_string(args[4])
         value = args[5]
 
         # we wont limit passing more than 6 arguments.

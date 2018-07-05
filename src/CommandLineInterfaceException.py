@@ -15,3 +15,8 @@ class MissingArgumentsException(CommandLineInterfacecException):
     def __init__(self, expected_args_number, actual_args):
         self.message = "Not enough arguments. Expected " + expected_args_number + ". Received " + \
                        len(actual_args) + ' , namely ' + actual_args
+
+
+class InvalidOperatorException(CommandLineInterfacecException):
+    def __init__(self, operator):
+        self.message = "The operator '" + operator + "' is invalid. Please check documentation or use 'help' command"

@@ -26,6 +26,7 @@ def test__extract_from_xml():
         # extracted_xml = fuse_into_old_xml(extracted_xml, xml_tree.getroot())
     except NotChildOfSameParentException as e:
         print(e)
+        extracted_xml = "<ErrorMessage>" + str(e) + "</ErrorMessage>"
 
     data = xml_to_string(extracted_xml, pretty_print=True)
     with open(constants.base_filepath + 'regression_test_out.xml', 'w') as file:

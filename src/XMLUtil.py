@@ -1,7 +1,9 @@
-from src.XMLExtractorException import NoUniqueRootElementException
+from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
+    TemplateNotFoundException
 import re
 from xml.etree import ElementTree
 import xml.dom.minidom
+import constants
 
 # find_first_common_parent :: Element String -> Element | context: xml.etree.ElementTree.Element
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
@@ -33,3 +35,43 @@ def xml_to_string(extracted_xml, pretty_print=False):
         return xml.dom.minidom.parseString(data).toprettyxml()
     else:
         return data
+
+class Template:
+    def __init__(self, template_name):
+
+        self.template = None
+        self.config = None
+
+        with open(constants.config_filepath + 'config.xacfg') as file:
+            # get child with template name
+            root = ElementTree.fromstring(file.read()).findall('./' + template_name)
+            if len(root) == 1:
+                root = root[0]  # unwrap
+            else:
+                raise NotUniqueTemplateException(template_name)
+
+        self.set_template(root)
+        self.set_config(root)
+
+    def set_template(self, element_tree):
+        self.template = element_tree.findall('./template')
+        if len(self.template) == 1:
+            self.template = self.template[0]  # unwrap
+        else:
+            raise TemplateNotFoundException(element_tree.tag)
+
+    def set_config(self, element_tree):
+        self.config = element_tree.findall('./config')
+        if len(self.template) == 1:
+            self.config = self.template[0]  # unwrap
+        elif len(self.template) == 0:
+            self.config = '<config>default</config>'
+        else:
+            print("more than one config found. Assuming default config")
+            self.config = '<config>default</config>'
+
+    def get_template(self):
+        return self.template
+
+    def get_config(self):
+        return self.config
