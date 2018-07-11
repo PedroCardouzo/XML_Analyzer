@@ -1,21 +1,20 @@
 from src.XMLFilter import *
 from src.Structures import ConditionalTuple
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import operator
 import constants
-from lxml import etree as lxml_ElementTree
-
+import src.XMLUtil as XMLUtil
 
 def test__filter_xml_tree(in_file, out_file, list_condition_tuples):
     xml_tree = ET.ElementTree()
     xml_tree.parse(constants.base_filepath + in_file)
-    dict_root = lxml_ElementTree.parse(constants.base_filepath + in_file)
     xml = xml_tree.getroot()
 
     out = filter_xml_tree(list_condition_tuples, xml)
 
-    xml_tree = ET.ElementTree(out)
-    xml_tree.write(constants.base_filepath + out_file)
+    data = XMLUtil.xml_to_string(out)
+    with open(constants.base_filepath + out_file, 'w') as file:
+        file.write(data)
 
 
 if __name__ == "__main__":
@@ -29,7 +28,7 @@ if __name__ == "__main__":
     #                        ConditionalTuple("paycompensation_recurring", "end_date", operator.gt, "2018-05-20")])
 
     test__filter_xml_tree("xml_todos.xml", "real_work_test_filter.xml", [ConditionalTuple("Employee", "EmployeeIDExternal", operator.eq, '65818')])
-    # test__filter_xml_tree("xml_qse_todos.xml", "kinda_real_work_test_filter.xml", [ConditionalTuple("Employee", "EmployeeIDExternal", operator.eq, '36522')])
+    test__filter_xml_tree("xml_qse_todos.xml", "kinda_real_work_test_filter.xml", [ConditionalTuple("Employee", "EmployeeIDExternal", operator.eq, '36522')])
 
 
     #<Employee>

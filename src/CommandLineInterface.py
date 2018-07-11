@@ -100,7 +100,7 @@ def call_extraction(args):
 
     extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree.getroot())
 
-    out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True, short_empty_elements=False)
+    out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True)
 
     print(out)
     with open(constants.base_filepath + output_file, 'w') as file:
@@ -138,7 +138,7 @@ def call_filter(args):
 
     extracted_xml = XMLFilter.filter_xml_tree([ct], xml_tree.getroot())
 
-    out = XMLUtil.xml_to_string(extracted_xml, short_empty_elements=False)
+    out = XMLUtil.xml_to_string(extracted_xml)
 
     print(out)
     with open(constants.base_filepath + output_file, 'w') as file:

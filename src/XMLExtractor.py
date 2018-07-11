@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 from src.XMLExtractorException import *
 from src.XMLUtil import find_first_common_parent
 

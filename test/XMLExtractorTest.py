@@ -1,10 +1,6 @@
 from src.XMLExtractor import *
-from src.Structures import ConditionalTuple
-import xml.etree.ElementTree as ET
-import operator
+import lxml.etree as ET
 import constants
-import xml.dom.minidom
-import re
 from src.XMLUtil import xml_to_string
 
 def test__extract_from_xml():

@@ -1,7 +1,7 @@
 from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
     TemplateNotFoundException
 import re
-from xml.etree import ElementTree
+import lxml.etree as ET
 import xml.dom.minidom
 import constants
 
@@ -11,11 +11,11 @@ def find_first_common_parent(xml, tag):
     candidates = xml.findall('.//' + tag)
     acc = '/..'
     while len(candidates) > 1:
-        candidates = xml.findall('.//' + tag + acc)
+        candidates = set(xml.findall('.//' + tag + acc))
         acc += '/..'
 
     # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
-    top_level = candidates[0]
+    top_level = next(iter(candidates))
     if top_level is None:
         raise NoUniqueRootElementException(candidates)
     else:
@@ -29,7 +29,7 @@ def find_first_common_parent(xml, tag):
 # todo: add option to clean up empty-content tags
 # fix stuff this later, but testing is more important as of now
 def xml_to_string(extracted_xml, pretty_print=False, short_empty_elements=True):
-    data = ElementTree.tostring(extracted_xml, short_empty_elements=short_empty_elements).decode('utf-8')
+    data = ET.tostring(extracted_xml, method='html').decode('utf-8')
     data = re.sub(">[\n\t\s]*<", '><', data)
     if pretty_print:
         return xml.dom.minidom.parseString(data).toprettyxml()
@@ -44,7 +44,7 @@ class Template:
 
         with open(constants.config_filepath + 'config.xacfg') as file:
             # get child with template name
-            root = ElementTree.fromstring(file.read()).findall('./' + template_name)
+            root = ET.ElementTree.fromstring(file.read()).findall('./' + template_name)
             if len(root) == 1:
                 root = root[0]  # unwrap
             else:
