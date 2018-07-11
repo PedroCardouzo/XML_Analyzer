@@ -6,8 +6,7 @@ import constants
 import src.XMLUtil as XMLUtil
 
 def test__filter_xml_tree(in_file, out_file, list_condition_tuples):
-    xml_tree = ET.ElementTree()
-    xml_tree.parse(constants.base_filepath + in_file)
+    xml_tree = ET.parse(constants.base_filepath + in_file)
     xml = xml_tree.getroot()
 
     out = filter_xml_tree(list_condition_tuples, xml)
