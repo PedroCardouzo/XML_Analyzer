@@ -1,5 +1,5 @@
 version = '0.2'
-base_filepath = "../SAP_XMLs/"
+base_filepath = "../work_area/"
 config_filepath = "../work_area/"
 syntax_help = """
 # extracts from file using template

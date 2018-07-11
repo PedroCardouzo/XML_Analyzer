@@ -1,3 +1,8 @@
+** as always on the release branch, every file must be on "root" folder so that PyInstaller finds them **
+**               basically, every module/file must be imported as File and not Folder.File             **
+
+--  to build use: pyinstaller Main.py --onefile (linux)
+
 # How to use
 Add templates inside config file
 template must follow format
