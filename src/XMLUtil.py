@@ -28,8 +28,8 @@ def find_first_common_parent(xml, tag):
 # todo: not the best way because if the content for a tag is only composed of \n or \t or \s it will be removed
 # todo: add option to clean up empty-content tags
 # fix stuff this later, but testing is more important as of now
-def xml_to_string(extracted_xml, pretty_print=False):
-    data = ElementTree.tostring(extracted_xml).decode('utf-8')
+def xml_to_string(extracted_xml, pretty_print=False, short_empty_elements=True):
+    data = ElementTree.tostring(extracted_xml, short_empty_elements=short_empty_elements).decode('utf-8')
     data = re.sub(">[\n\t\s]*<", '><', data)
     if pretty_print:
         return xml.dom.minidom.parseString(data).toprettyxml()

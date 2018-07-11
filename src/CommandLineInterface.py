@@ -100,7 +100,7 @@ def call_extraction(args):
 
     extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree.getroot())
 
-    out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True)
+    out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True, short_empty_elements=False)
 
     print(out)
     with open(constants.base_filepath + output_file, 'w') as file:
@@ -138,7 +138,7 @@ def call_filter(args):
 
     extracted_xml = XMLFilter.filter_xml_tree([ct], xml_tree.getroot())
 
-    out = XMLUtil.xml_to_string(extracted_xml)
+    out = XMLUtil.xml_to_string(extracted_xml, short_empty_elements=False)
 
     print(out)
     with open(constants.base_filepath + output_file, 'w') as file:
@@ -149,7 +149,7 @@ def parse_for_call_filter(input_string):
     try:
         args = input_string.split(' removing ')
         args = args[0].split(' to ') + args[1].split(' if ')
-        args = args[:3] + args[3].replace(' is false').split(' ')
+        args = args[:3] + args[3].replace(' is false', '').split(' ')
     except IndexError:
         raise InvalidCommandException(input_string)
 

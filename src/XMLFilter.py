@@ -12,8 +12,10 @@ def filter_xml_tree(conditions, xml):
 
         top_level = find_first_common_parent(xml, cond.candidate)
 
-        for child in top_level:
-            filter_xml(cond, child, top_level)
+        comp_func = make_cond(cond)
+
+        for child in list(top_level):
+                filter_xml(cond, comp_func, child, top_level)
 
     return xml
 
@@ -24,13 +26,13 @@ def filter_xml_tree(conditions, xml):
 # if the element (2nd argument, sub_xml) is the candidate, it proceeds to validate it,
 #           removing itself from the parent Element if condition is not met
 # if it is not, it calls the function recursively to its children
-def filter_xml(condition, sub_xml, parent):
+def filter_xml(condition, comp_func, sub_xml, parent):
     if sub_xml.tag == condition.candidate:
-        if not make_cond(condition)(sub_xml):
+        if not comp_func(sub_xml):
             parent.remove(sub_xml)
     else:
         for child in list(sub_xml):
-            filter_xml(condition, child, sub_xml)
+            filter_xml(condition, comp_func, child, sub_xml)
 
 
 def make_cond(cond):
