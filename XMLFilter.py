@@ -1,4 +1,4 @@
-from src.XMLUtil import find_first_common_parent
+from XMLUtil import find_first_common_parent
 
 
 # filter_xml_tree :: [ConditionalTuple] Element -> Element

@@ -1,13 +1,12 @@
-from src.Structures import ConditionalTuple
 import re
-from src.CommandLineInterfaceException import *
+from CommandLineInterfaceException import *
 from lxml.etree import ElementTree
 import constants
-from src.Structures import ConditionalTuple
-import src.XMLExtractor as XMLExtractor
-import src.XMLFilter as XMLFilter
-import src.XMLUtil as XMLUtil
-import src.CommandLineOperators as CommandLineOperators
+from Structures import ConditionalTuple
+import XMLExtractor as XMLExtractor
+import XMLFilter as XMLFilter
+import XMLUtil as XMLUtil
+import CommandLineOperators as CommandLineOperators
 
 
 def parse(input_string):

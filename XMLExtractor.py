@@ -1,6 +1,6 @@
 import lxml.etree as ET
-from src.XMLExtractorException import *
-from src.XMLUtil import find_first_common_parent
+from XMLExtractorException import *
+from XMLUtil import find_first_common_parent
 
 def fuse_into_old_xml(extracted_xml_portion, xml):
 

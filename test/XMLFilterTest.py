@@ -1,9 +1,9 @@
-from src.XMLFilter import *
-from src.Structures import ConditionalTuple
+from XMLFilter import *
+from Structures import ConditionalTuple
 import lxml.etree as ET
 import operator
 import constants
-import src.XMLUtil as XMLUtil
+import XMLUtil as XMLUtil
 
 def test__filter_xml_tree(in_file, out_file, list_condition_tuples):
     xml_tree = ET.parse(constants.base_filepath + in_file)

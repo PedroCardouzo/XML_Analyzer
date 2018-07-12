@@ -1,4 +1,4 @@
-from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
+from XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
     TemplateNotFoundException
 import re
 import lxml.etree as ET

@@ -1,5 +1,5 @@
 from operator import eq, lt, gt, ge, le, ne
-from src.CommandLineInterfaceException import InvalidOperatorException
+from CommandLineInterfaceException import InvalidOperatorException
 
 # get_comp_function_from_string :: String -> (a b -> Boolean) | a, b extends Comparable
 def get_comp_function_from_string(string):

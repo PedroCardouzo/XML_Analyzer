@@ -1,7 +1,7 @@
-from src.XMLExtractor import *
+from XMLExtractor import *
 import lxml.etree as ET
 import constants
-from src.XMLUtil import xml_to_string
+from XMLUtil import xml_to_string
 
 def test__extract_from_xml():
     templ = """<?xml version="1.0"?>
