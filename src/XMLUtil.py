@@ -44,7 +44,7 @@ class Template:
 
         with open(constants.config_filepath + 'config.xacfg') as file:
             # get child with template name
-            root = ET.ElementTree.fromstring(file.read()).findall('./' + template_name)
+            root = ET.fromstring(file.read()).findall('./' + template_name)
             if len(root) == 1:
                 root = root[0]  # unwrap
             else:

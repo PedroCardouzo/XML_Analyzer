@@ -1,7 +1,7 @@
 from src.Structures import ConditionalTuple
 import re
 from src.CommandLineInterfaceException import *
-from xml.etree.ElementTree import ElementTree
+from lxml.etree import ElementTree
 import constants
 from src.Structures import ConditionalTuple
 import src.XMLExtractor as XMLExtractor
@@ -16,7 +16,7 @@ def parse(input_string):
     elif re.match('^:: ', input_string):
         call_extraction(input_string[:3].split(' '))
     elif re.match('^filter ', input_string):
-        parse_for_call_filter(input_string)
+        parse_for_call_filter(input_string[7:])
     elif re.match('^\$ ', input_string):
         call_filter(input_string[2:].split(' '))
     elif input_string == 'help':

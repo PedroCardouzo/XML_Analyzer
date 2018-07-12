@@ -37,6 +37,7 @@ def extract_template_data_from_xml(template, xml):
     data = []
 
     all_father = get_top_level_common_parent(template, xml)
+    # a template can contain multiple repeating structures
 
     for repeating_structure in template:
 
@@ -48,10 +49,15 @@ def extract_template_data_from_xml(template, xml):
 
     extracted_xml_portion = ET.Element(all_father.tag)
     extracted_xml_portion.text = all_father.text
-    for x in data:
-        extracted_xml_portion.append(x)
 
-    return extracted_xml_portion
+    # in this case all_father == common_parent, therefore we can just return the only one content of data
+    if len(data) == 1:
+        return data[0]
+    else:
+        for x in data:
+            extracted_xml_portion.append(x)
+
+        return extracted_xml_portion
 
 # extract_from_xml :: Element Element -> Element | context: xml.etree.ElementTree.Element
 # recurses through xml_section until it finds a match for the top level element

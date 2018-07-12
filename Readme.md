@@ -1,3 +1,10 @@
+How to compile:
+- on python terminal : run Main.py
+- using PyInstaller and creating a single executable:
+    place every .py file inside src into main folder (root folder for project)
+    alter constants.py to access the folder you desire using the relative path from the executable file.
+    run command 'pyinstaller Main.py --onefile'
+
 # How to use
 Add templates inside config file
 template must follow format
