@@ -146,7 +146,7 @@ syntax:
 # extracts from file using template
 extract from <source_file> using <template_file> to <output_file>
 :: <source_file> <template_file> <output_file>  # shortcut for the above
-# example: extract from in.xml using templ.xml to out.xml
+# example: extract from in.xml using templ1 to out.xml
 ------------------ in.xml ------------------
 <root>
     <b>
@@ -158,24 +158,43 @@ extract from <source_file> using <template_file> to <output_file>
         <y>teste2</y>
     </b>
 </root>
------------------- templ.xml ------------------
-<b>
-    <y></y>
-</b>
+------------------ config.xacfg ------------------
+<config>
+    <templ1>
+        <template>
+            <b>
+                <y></y>
+            </b>
+        </template>
+        <config>default</config>
+    </templ1>
+    <templ2>
+        <template>
+            <tag>another template here</tag>
+        </template>
+    </templ2>
+</config>
+
+(obs.: the chosen template was templ1:
+            <b>
+                <y></y>
+            </b>
 ------------------ out.xml ------------------
-<b>
-    <y>teste</y>
-</b>
-<b>
-    <y>teste2</y>
-</b>
+<root>
+    <b>
+        <y>teste</y>
+    </b>
+    <b>
+        <y>teste2</y>
+    </b>
+</root>
 
 # filters from <source_file> the occurrences of <candidate> which do not pass the restraining '<field> <comp> <value>'
-filter <source_file> to <output_file> removing <candidate> if <field> <comp> <value> is false
+filter <source_file> to <output_file> keeping <candidate> if <field> <comp> <value>
 $ <source_file> <output_file> <candidate> <field> <comp> <value>  # shortcut for the above
     where
         <comp> is the comparison operator operator, which can be ==, =, !=, /=, >, >=, <, <=
-# example: filter in.xml to out.xml removing b if x != 5 is false
+# example: filter in.xml to out.xml keeping b if x != 5
 ------------------ in.xml ------------------
 <root>
     <b>

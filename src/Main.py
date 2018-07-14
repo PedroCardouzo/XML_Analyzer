@@ -1,5 +1,5 @@
 import src.CommandLineInterface as CommandLineInterface
-from src.CommandLineInterfaceException import *
+from src.XMLAnalyzerException import *
 from src.XMLExtractorException import *
 import traceback
 

@@ -1,6 +1,7 @@
 import lxml.etree as ET
 from src.XMLExtractorException import *
-from src.XMLUtil import find_first_common_parent
+import src.XMLUtil as XMLUtil
+
 
 def fuse_into_old_xml(extracted_xml_portion, xml):
 
@@ -20,7 +21,7 @@ def fuse_into_old_xml(extracted_xml_portion, xml):
 def get_top_level_common_parent(template, xml):
     common_parent = set()
     for x in template:
-        common_parent.add(find_first_common_parent(xml, x.tag))
+        common_parent.add(XMLUtil.find_first_common_parent(xml, x.tag))
 
     if len(common_parent) == 1:
         return next(iter(common_parent))
@@ -41,7 +42,7 @@ def extract_template_data_from_xml(template, xml):
 
     for repeating_structure in template:
 
-        common_parent = find_first_common_parent(xml, repeating_structure.tag)
+        common_parent = XMLUtil.find_first_common_parent(xml, repeating_structure.tag)
 
         # (only in debugging mode): weird exception is thrown in the case I sent the output of
         # extract_from_xml_section to a variable. In case I print it, for example, no exception is thrown
@@ -63,7 +64,8 @@ def extract_template_data_from_xml(template, xml):
 # recurses through xml_section until it finds a match for the top level element
 # from the template and then extracts data from it using the template
 def extract_from_xml(repeating_structure, xml_section):
-    if xml_section.tag == repeating_structure.tag:
+
+    if XMLUtil.repeating_structure_tag_match(repeating_structure.tag, xml_section.tag):
         return extract_from_xml_section([repeating_structure], xml_section)
     else:
         contentless = True
@@ -93,7 +95,7 @@ def extract_from_xml(repeating_structure, xml_section):
 #       d -> max level of template (how deep the XML parsed tree of the template is)
 def extract_from_xml_section(template, xml):
     # each template tag should be unique, therefore templ should have size <= 1 after this
-    templ = [y for y in template if y.tag == xml.tag]
+    templ = [y for y in template if XMLUtil.repeating_structure_tag_match(y.tag, xml.tag)]
 
     # validation ::
     if templ == []:  # XML tag is not in the current level of template

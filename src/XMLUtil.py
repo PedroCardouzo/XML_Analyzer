@@ -5,6 +5,7 @@ import lxml.etree as ET
 import xml.dom.minidom
 import constants
 
+
 # find_first_common_parent :: Element String -> Element | context: xml.etree.ElementTree.Element
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
 def find_first_common_parent(xml, tag):
@@ -36,11 +37,17 @@ def xml_to_string(extracted_xml, pretty_print=False):
     else:
         return data
 
+
+def repeating_structure_tag_match(pattern_from_templ, string_from_xml):
+    # if you said "any namespace (i.e. '{*}'), this changes it to actual regex that accepts any namespace
+    comparing_tag = pattern_from_templ.replace('{*}', '^{.*}')
+    return re.match(comparing_tag, string_from_xml)
+
 class Template:
     def __init__(self, template_name):
 
         self.template = None
-        self.config = None
+        self.post_process_queue = None
 
         with open(constants.config_filepath + 'config.xacfg') as file:
             # get child with template name
@@ -51,7 +58,7 @@ class Template:
                 raise NotUniqueTemplateException(template_name)
 
         self.set_template(root)
-        self.set_config(root)
+        self.create_post_processing_queue(root)
 
     def set_template(self, element_tree):
         self.template = element_tree.findall('./template')
@@ -60,18 +67,18 @@ class Template:
         else:
             raise TemplateNotFoundException(element_tree.tag)
 
-    def set_config(self, element_tree):
-        self.config = element_tree.findall('./config')
-        if len(self.template) == 1:
-            self.config = self.template[0]  # unwrap
-        elif len(self.template) == 0:
-            self.config = '<config>default</config>'
+    def create_post_processing_queue(self, element_tree):
+        self.post_process_queue = element_tree.findall('./post_processing')
+        if len(self.post_process_queue) == 1:
+            self.post_process_queue = self.post_process_queue[0]  # unwrap
+        elif len(self.post_process_queue) == 0:
+            self.post_process_queue = '<post_processing>default</post_processing>'
         else:
-            print("more than one config found. Assuming default config")
-            self.config = '<config>default</config>'
+            print("more than one post processing found. Assuming default post processing")
+            self.post_process_queue = '<post_processing>default</post_processing>'
 
     def get_template(self):
         return self.template
 
     def get_config(self):
-        return self.config
+        return self.post_process_queue
