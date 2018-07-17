@@ -1,4 +1,4 @@
-import CommandLineInterface as CommandLineInterface
+import CommandLineInterface
 import traceback
 
 def main():
