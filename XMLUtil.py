@@ -1,4 +1,4 @@
-from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
+from XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
      InnerTemplateNotFoundException, TemplateNotFoundException
 import re
 import lxml.etree as ET
@@ -61,7 +61,7 @@ class Template:
         self.template = None
         self.post_process_queue = None
 
-        with open(constants.config_filepath + 'config.xacfg') as file:
+        with open(constants.config_filepath) as file:
             # get child with template name
             root = ET.fromstring(file.read()).findall('./' + template_name)
             if len(root) == 1:

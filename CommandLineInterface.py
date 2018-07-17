@@ -1,13 +1,12 @@
-from src.Structures import ConditionalTuple
 import re
-from src.XMLAnalyzerException import *
-from lxml.etree import ElementTree
+from XMLAnalyzerException import *
+import lxml.etree as ET
 import constants
-from src.Structures import *
-from src import XMLExtractor
-from src import XMLFilter
-from src import XMLUtil
-from src import PostProcessing
+from Structures import *
+import XMLExtractor
+import XMLFilter
+import XMLUtil
+import PostProcessing
 
 
 def parse(input_string):
@@ -19,6 +18,8 @@ def parse(input_string):
         return parse_for_call_filter(input_string[7:])
     elif re.match('^\$ ', input_string):
         return call_filter(input_string[2:].split(' '))
+    elif re.match('^template(s?)$', input_string):
+        return get_templates()
     elif input_string == 'help':
         return constants.syntax_help
     elif input_string == 'version':
@@ -37,7 +38,7 @@ def call_extraction(args):
     else:
         raise IncorrectArgumentNumberException(3, args)
 
-    xml_tree = ElementTree()
+    xml_tree = ET.ElementTree()
     xml_tree.parse(constants.base_filepath + input_file)
 
     template = XMLUtil.Template(template_name)
@@ -81,7 +82,7 @@ def call_filter(args):
     else:
         raise IncorrectArgumentNumberException(6, args)
 
-    xml_tree = ElementTree()
+    xml_tree = ET.ElementTree()
     xml_tree.parse(constants.base_filepath + input_file)
 
     extracted_xml = XMLFilter.filter_xml_tree([ct], xml_tree.getroot())
@@ -103,3 +104,9 @@ def parse_for_call_filter(input_string):
         raise InvalidCommandException(input_string)
 
     return call_filter(args)
+
+
+def get_templates():
+    with open(constants.config_filepath) as file:
+        config = ET.fromstring(file.read())
+        return [template.tag for template in config]

@@ -1,5 +1,5 @@
-from src import CommandLineInterface
-from src import XMLUtil
+import CommandLineInterface
+import XMLUtil
 import constants
 
 

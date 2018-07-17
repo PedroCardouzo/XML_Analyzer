@@ -1,6 +1,6 @@
 from collections import namedtuple
 from operator import eq, lt, gt, ge, le, ne
-from src.XMLAnalyzerException import InvalidOperatorException
+from XMLAnalyzerException import InvalidOperatorException
 
 
 # namedtuple(String, String, Comparison, builtin_function_or_method, String)

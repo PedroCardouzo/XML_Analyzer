@@ -1,5 +1,5 @@
-from src import XMLUtil
-from src.Structures import ConditionalTuple
+import XMLUtil
+from Structures import ConditionalTuple
 
 
 # filter_xml_tree :: [ConditionalTuple] Element -> Element

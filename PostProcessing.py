@@ -1,7 +1,7 @@
-from src import XMLAnalyzerException
-from src.Structures import *
-from src import XMLFilter
-from src import XMLUtil
+import XMLAnalyzerException
+from Structures import *
+import XMLFilter
+import XMLUtil
 import re
 
 

@@ -1,6 +1,6 @@
 import lxml.etree as ET
-from src.XMLExtractorException import *
-import src.XMLUtil as XMLUtil
+from XMLExtractorException import *
+import XMLUtil as XMLUtil
 
 
 def fuse_into_old_xml(extracted_xml_portion, xml):
