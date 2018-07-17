@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0ab6526-6b31-494f-ba9a-05203a661f4a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/test/CommandLineInterfaceTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/pedrozardo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/pedrozardo.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CommandLineInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/CommandLineInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PostProcessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/PostProcessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/XMLExtractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/XMLExtractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/XMLExtractorException.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/XMLExtractorException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/XMLFilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/XMLFilter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/XMLUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/XMLUtil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/XMLExtractorTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/XMLExtractorTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work_area/config.xacfg" beforeDir="false" afterPath="$PROJECT_DIR$/work_area/config.xacfg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,6 +16,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="config.xacfg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAP_XMLs/config.xacfg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="492">
+              <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMLUtil.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/XMLUtil.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#160#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="x.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAP_XMLs/x.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="24" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="filter_in.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SAP_XMLs/filter_in.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="913">
+              <caret line="200" column="31" selection-start-line="200" selection-start-column="31" selection-end-line="200" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="constants.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/constants.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -38,11 +76,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="constants.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/constants.py">
+      <file leaf-file-name="CommandLineInterface.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CommandLineInterface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+            <state relative-caret-position="840">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.xacfg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work_area/config.xacfg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -58,12 +108,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>xml.etree</find>
-      <find>.replace(</find>
       <find>set(</find>
       <find>xml</find>
       <find>ET</find>
-      <find>ElementTree</find>
       <find>set</find>
       <find>ET.Element</find>
       <find>re.match</find>
@@ -88,6 +135,9 @@
       <find>xml.dom</find>
       <find>TemplateNotFoundException</find>
       <find>TemplateNotFound</find>
+      <find>ElementTree</find>
+      <find>conditionalTuple</find>
+      <find>config.xacfg</find>
     </findStrings>
     <replaceStrings>
       <replace>constants.base_filepath</replace>
@@ -124,15 +174,15 @@
         <option value="$PROJECT_DIR$/src/Main.py" />
         <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/src/PostProcessing.py" />
-        <option value="$PROJECT_DIR$/src/CommandLineInterface.py" />
         <option value="$PROJECT_DIR$/src/XMLExtractor.py" />
         <option value="$PROJECT_DIR$/SAP_XMLs/filter_in.xml" />
         <option value="$PROJECT_DIR$/src/XMLFilter.py" />
         <option value="$PROJECT_DIR$/src/XMLExtractorException.py" />
         <option value="$PROJECT_DIR$/test/CommandLineInterfaceTest.py" />
-        <option value="$PROJECT_DIR$/src/XMLUtil.py" />
         <option value="$PROJECT_DIR$/SAP_XMLs/out.xml" />
+        <option value="$PROJECT_DIR$/src/CommandLineInterface.py" />
         <option value="$PROJECT_DIR$/SAP_XMLs/config.xacfg" />
+        <option value="$PROJECT_DIR$/src/XMLUtil.py" />
         <option value="$PROJECT_DIR$/constants.py" />
       </list>
     </option>
@@ -186,12 +236,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/work_area" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/SAP_XMLs" />
       <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/work_area" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -7127,9 +7177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
           <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -7137,16 +7184,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="75" column="33" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SAP_XMLs/filter_in.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3600">
-          <caret line="200" column="31" lean-forward="true" selection-start-line="200" selection-start-column="31" selection-end-line="200" selection-end-column="31" />
+        <state relative-caret-position="913">
+          <caret line="200" column="31" selection-start-line="200" selection-start-column="31" selection-end-line="200" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -7194,16 +7238,6 @@
           <caret line="24" column="60" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="60" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/XMLUtil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#160#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -34716,27 +34750,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommandLineInterface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/XMLExtractorTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SAP_XMLs/config.xacfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -34750,10 +34767,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CommandLineInterface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SAP_XMLs/config.xacfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/XMLUtil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/constants.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        <state relative-caret-position="18">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
         </state>
       </provider>
     </entry>
