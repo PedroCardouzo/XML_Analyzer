@@ -1,12 +1,12 @@
 from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
-    TemplateNotFoundException
+     InnerTemplateNotFoundException, TemplateNotFoundException
 import re
 import lxml.etree as ET
-import xml.dom.minidom
 import constants
+import xml.dom.minidom as minidom
 
 
-# find_first_common_parent :: Element String -> Element | context: xml.etree.ElementTree.Element
+# find_first_common_parent :: Element String -> Element | context: lxml.etree.Element
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
 def find_first_common_parent(xml, tag):
     candidates = xml.findall('.//' + tag)
@@ -23,19 +23,31 @@ def find_first_common_parent(xml, tag):
         return top_level
 
 
-# xml_to_string :: Element Boolean=False -> String | context: xml.etree.ElementTree.Element
-# given an Element, transforms it into a compacted xml notation, removing whitespaces.
-# if optional argument pretty_print is set as True, it indents the xml in a more visual appealing way
-# todo: not the best way because if the content for a tag is only composed of \n or \t or \s it will be removed
-# todo: add option to clean up empty-content tags
-# fix stuff this later, but testing is more important as of now
-def xml_to_string(extracted_xml, pretty_print=False):
-    data = ET.tostring(extracted_xml, method='html').decode('UTF-8')
-    data = re.sub(">[\n\t\s]*<", '><', data)
-    if pretty_print:
-        return xml.dom.minidom.parseString(data).toprettyxml()
+# given a string that is a valid xml, transforms it into a compacted xml notation, removing whitespaces.
+def compress_xml(xml):
+    if type(xml) is str:
+        return re.sub(">[\n\t\s]*<", '><', xml)
+    elif type(xml) is ET._Element:
+        return ET.fromstring(compress_xml(xml_to_string(xml)))
+        # todo: maybe a recursion removing text and tail if text and tail matches '>[\n\t\s]*<', but has children
     else:
-        return data
+        raise TypeError
+
+
+# given a string that is a valid xml, it indents it
+def indent_xml(xml):
+    if type(xml) is str:
+        return minidom.parseString(compress_xml(xml)).toprettyxml()
+    elif type(xml) is ET._Element:
+        return ET.fromstring(indent_xml(xml_to_string(xml)))
+    else:
+        raise TypeError
+
+
+# xml_to_string :: Element -> String | context: lxml.etree.Element
+# transforms XML Object to string format
+def xml_to_string(extracted_xml):
+    return ET.tostring(extracted_xml, method='html').decode(constants.codification)
 
 
 def repeating_structure_tag_match(pattern_from_templ, string_from_xml):
@@ -54,6 +66,8 @@ class Template:
             root = ET.fromstring(file.read()).findall('./' + template_name)
             if len(root) == 1:
                 root = root[0]  # unwrap
+            elif len(root) == 0:
+                raise TemplateNotFoundException(template_name)
             else:
                 raise NotUniqueTemplateException(template_name)
 
@@ -65,7 +79,7 @@ class Template:
         if len(self.template) == 1:
             self.template = self.template[0]  # unwrap
         else:
-            raise TemplateNotFoundException(element_tree.tag)
+            raise InnerTemplateNotFoundException(element_tree.tag)
 
     def create_post_processing_queue(self, element_tree):
         self.post_process_queue = element_tree.findall('./post_processing')

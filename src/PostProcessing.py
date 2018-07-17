@@ -1,27 +1,45 @@
 from src import XMLAnalyzerException
 from src.Structures import *
 from src import XMLFilter
+from src import XMLUtil
 import re
 
-def apply(extracted_xml, post_process):
+
+def apply_all(xml, post_processes):
+    for post_process in post_processes:
+        xml = apply(xml, post_process)
+    return xml
+
+
+def apply(xml, post_process):
     if post_process.tag == 'filter':
-        apply_filter(extracted_xml, post_processing_string_splitter(post_process.text))
+        return apply_filter(xml, post_processing_string_splitter(post_process.text))
+    elif post_process.tag == 'text_formatting':
+        if post_process.text == 'compress':
+            return XMLUtil.compress_xml(xml)
+        elif post_process.text == 'indent':
+            return XMLUtil.indent_xml(xml)
     else:
         raise XMLAnalyzerException.InvalidPostProcessTag(post_process.tag)
 
 
-def apply_filter(extracted_xml, args):
+def apply_filter(extracted_xml, args, args_stack=[]):
     if len(args) == 4:
         # readying up arguments
         for i in range(len(args)):
             if re.match('^\$param\(.*\)$', args[i]):
-                args[i] = input(args[i])
+                if args_stack == []:
+                    args[i] = input(args[i][8:-2])
+                else:
+                    args[i] = args_stack.pop(0)
 
         ct = makeConditionalTuple(args[0], args[1], args[2], args[3])
     else:
         raise XMLAnalyzerException.IncorrectArgumentNumberException(4, args)
 
     XMLFilter.filter_xml_tree(ct, extracted_xml)
+
+    return extracted_xml
 
 
 # split at every space, except if it is inside "$param('<here>') statement

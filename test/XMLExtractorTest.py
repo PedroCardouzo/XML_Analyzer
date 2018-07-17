@@ -24,7 +24,7 @@ def test__extract_from_xml():
         print(e)
         extracted_xml = "<ErrorMessage>" + str(e) + "</ErrorMessage>"
 
-    data = xml_to_string(extracted_xml, pretty_print=True)
+    data = xml_to_string(extracted_xml)
     with open(constants.base_filepath + 'regression_test_out.xml', 'w') as file:
         file.write(data)
 

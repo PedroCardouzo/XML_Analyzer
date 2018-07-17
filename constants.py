@@ -1,12 +1,14 @@
-version = '0.3.0'
-base_filepath = "../SAP_XMLs/"
-config_filepath = "../SAP_XMLs/"
-
+version = '0.3.1'
+base_filepath = "../work_area/"
+config_filepath = "../work_area/"
+codification = 'UTF-8'
 # extracted from the 'syntax' section of the readme
+# todo: change the "how to not write to a file" idea
 syntax_help = """
 # extracts from file using template
 extract from <source_file> using <template_file> to <output_file>
 :: <source_file> <template_file> <output_file>  # shortcut for the above
+# if <output_file> is exactly None, it will not write to any file and just print the output in the terminal
 # example: extract from in.xml using templ1 to out.xml
 ------------------ in.xml ------------------
 <root>
@@ -27,7 +29,7 @@ extract from <source_file> using <template_file> to <output_file>
                 <y></y>
             </b>
         </template>
-        <config>default</config>
+        <post_processing>default</post_processing>
     </templ1>
     <templ2>
         <template>

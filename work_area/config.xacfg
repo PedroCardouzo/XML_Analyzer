@@ -6,7 +6,7 @@
             </tag_i_want>
         </template>
 
-        <config>default</config>
+        <post_processing>default</post_processing>
     </templ1>
     <templ2>
         <template>

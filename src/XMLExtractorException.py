@@ -31,6 +31,11 @@ class NotUniqueTemplateException(XMLExtractorException):
         self.message = "Template '" + template_name + "' is not unique. Please make sure that template names are unique"
 
 
+class InnerTemplateNotFoundException(XMLExtractorException):
+    def __init__(self, template_name):
+        self.message = "Inside template '" + template_name + "' the 'template' tag was not found"
+
+
 class TemplateNotFoundException(XMLExtractorException):
     def __init__(self, template_name):
-        self.message = "Inside template '" + + template_name + "' the 'template' tag was not found"
+        self.message = "The template '" + template_name + "' was not found in the templates file"

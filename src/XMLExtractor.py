@@ -29,7 +29,7 @@ def get_top_level_common_parent(template, xml):
         raise NoCommonParentInTemplateTopLevelException([x for x in template])
 
 
-# extract_template_data_from_xml :: Element Element -> Element | context: xml.etree.ElementTree.Element
+# extract_template_data_from_xml :: Element Element -> Element | context: lxml.etree.Element
 # given an template and an xml, it extracts the repeating occurrences of the template in the xml
 # template should be the tag that is the template name in the template xml, containing the tags with the actual data
 # you want to extract
@@ -50,6 +50,7 @@ def extract_template_data_from_xml(template, xml):
 
     extracted_xml_portion = ET.Element(all_father.tag)
     extracted_xml_portion.text = all_father.text
+    extracted_xml_portion.tail = all_father.tail
 
     # in this case all_father == common_parent, therefore we can just return the only one content of data
     if len(data) == 1:
@@ -60,7 +61,7 @@ def extract_template_data_from_xml(template, xml):
 
         return extracted_xml_portion
 
-# extract_from_xml :: Element Element -> Element | context: xml.etree.ElementTree.Element
+# extract_from_xml :: Element Element -> Element | context: lxml.etree.Element
 # recurses through xml_section until it finds a match for the top level element
 # from the template and then extracts data from it using the template
 def extract_from_xml(repeating_structure, xml_section):
@@ -71,6 +72,7 @@ def extract_from_xml(repeating_structure, xml_section):
         contentless = True
         new_parent = ET.Element(xml_section.tag)
         new_parent.text = xml_section.text
+        new_parent.tail = xml_section.tail
         for child in xml_section:
             extracted_data = extract_from_xml(repeating_structure, child)
             if extracted_data is not None:
@@ -87,7 +89,7 @@ def extract_from_xml(repeating_structure, xml_section):
 # example: template has <abc><d></d><e></e></abc> but xml has <abc>10</abc>
 # todo: handle exception that will occur when trying to access a tag that doesn't exists in the current level
 # example: template has <a><c></c><d></d></a> but xml has <a><b><c></c></b><d></d></a> -> output = <a><d></d></a>
-# extract_from_xml_section :: [Element] Element | context: xml.etree.ElementTree.Element
+# extract_from_xml_section :: [Element] Element | context: lxml.etree.Element
 # complexity :: O(N . n . d)
 #     where
 #       N -> number of children in the current level in the XML
@@ -114,6 +116,7 @@ def extract_from_xml_section(template, xml):
         else:
             new_el = ET.Element(xml.tag)
             new_el.text = xml.text
+            new_el.tail = xml.tail
             for xml_child in xml:
                 sub_element = extract_from_xml_section(template_children, xml_child)
 

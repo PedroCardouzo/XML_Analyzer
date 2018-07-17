@@ -146,6 +146,7 @@ syntax:
 # extracts from file using template
 extract from <source_file> using <template_file> to <output_file>
 :: <source_file> <template_file> <output_file>  # shortcut for the above
+# if <output_file> is exactly None, it will not write to any file and just print the output in the terminal
 # example: extract from in.xml using templ1 to out.xml
 ------------------ in.xml ------------------
 <root>
@@ -166,7 +167,7 @@ extract from <source_file> using <template_file> to <output_file>
                 <y></y>
             </b>
         </template>
-        <config>default</config>
+        <post_processing>default</post_processing>
     </templ1>
     <templ2>
         <template>
@@ -213,3 +214,19 @@ $ <source_file> <output_file> <candidate> <field> <comp> <value>  # shortcut for
         <y>teste2</y>
     </b>
 </root>
+
+post_processing:
+
+here you can do things to the xml after the extraction is done. For now, this are the options that you can put inside the post_processing tag:
+<filter></filter> | content must have format <candidate> <field> <comp> <value> (same as filter, but without the input and output file names)
+                  | if you want the program to ask you each time one of the fields, you can use the $param('') syntax, as following:
+                  | Product product_id = $param('input the product id of the products you want to keep: ')
+                  | the program will only keep in the xml the tags <Product> where <product_id> content is = to the param provided
+                  | when the text prompts 'input the product id of the products you want to keep: ' during the execution
+                  | $param is asked to the user at runtime
+
+<text_formatting></text_formatting> | content can be either:
+                                    |   'compress' -> to remove spaces, tabs and new lines, compacting XML
+                                    |   'indent'   -> to indent the xml for a more human-readable output
+
+* $param(string_to_show_to_user) can be used inside any tag, as long as you don't go over the expected number of arguments

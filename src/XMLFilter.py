@@ -26,7 +26,7 @@ def filter_xml_tree(conditions, xml):
     return xml
 
 
-# filter_xml :: ConditionalTuple Element Element -> None
+# filter_xml :: ConditionalTuple (Element -> Boolean) Element Element -> None
 # side-effects: removes tags that didn't get approved by the logic
 # receives a ConditionalTuple, a xml element and its parent. It then proceeds to
 # if the element (2nd argument, sub_xml) is the candidate, it proceeds to validate it,

@@ -12,19 +12,18 @@ from src import PostProcessing
 
 def parse(input_string):
     if re.match('^extract from ', input_string):
-        parse_for_call_extraction(input_string[13:])
+        return parse_for_call_extraction(input_string[13:])
     elif re.match('^:: ', input_string):
-        call_extraction(input_string[:3].split(' '))
+        return call_extraction(input_string[:3].split(' '))
     elif re.match('^filter ', input_string):
-        parse_for_call_filter(input_string[7:])
+        return parse_for_call_filter(input_string[7:])
     elif re.match('^\$ ', input_string):
-        call_filter(input_string[2:].split(' '))
+        return call_filter(input_string[2:].split(' '))
     elif input_string == 'help':
-        print(constants.syntax_help)
+        return constants.syntax_help
     elif input_string == 'version':
-        print(constants.version)
+        return constants.version
     elif input_string == 'exit':
-        print("closing program")
         return input_string
     else:
         raise InvalidCommandException(input_string)
@@ -45,14 +44,15 @@ def call_extraction(args):
 
     extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree.getroot())
 
-    for x in template.post_process_queue:
-        PostProcessing.apply(extracted_xml, x)
+    extracted_xml = PostProcessing.apply_all(extracted_xml, template.post_process_queue)
 
-    out = XMLUtil.xml_to_string(extracted_xml, pretty_print=True)
+    out = XMLUtil.xml_to_string(extracted_xml)
 
-    print(out)
-    with open(constants.base_filepath + output_file, 'w') as file:
-        file.write(out)
+    if output_file != 'None':
+        with open(constants.base_filepath + output_file, 'w') as file:
+            file.write(out)
+
+    return out
 
 
 def parse_for_call_extraction(input_string):
@@ -62,7 +62,7 @@ def parse_for_call_extraction(input_string):
     except IndexError:
         raise InvalidCommandException(input_string)
 
-    call_extraction(args)
+    return call_extraction(args)
 
 def call_filter(args):
     if len(args) == 6:
@@ -88,17 +88,18 @@ def call_filter(args):
 
     out = XMLUtil.xml_to_string(extracted_xml)
 
-    print(out)
-    with open(constants.base_filepath + output_file, 'w') as file:
-        file.write(out)
+    if output_file != 'None':
+        with open(constants.base_filepath + output_file, 'w') as file:
+            file.write(out)
+    return out
 
 
 def parse_for_call_filter(input_string):
     try:
-        args = input_string.split(' removing ')
-        args = args[0].split(' to ') + args[1].split(' if not ')
+        args = input_string.split(' keeping ')
+        args = args[0].split(' to ') + args[1].split(' if ')
         args = args[:3] + args[3].split(' ')
     except IndexError:
         raise InvalidCommandException(input_string)
 
-    call_filter(args)
+    return call_filter(args)
