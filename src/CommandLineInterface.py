@@ -40,11 +40,18 @@ def call_extraction(args):
         raise IncorrectArgumentNumberException(3, args)
 
     xml_tree = ET.ElementTree()
-    xml_tree.parse(constants.base_filepath + input_file)
+    with open(constants.base_filepath + input_file) as file:
+        data = file.read()
+    try:
+        xml_tree = ET.fromstring(data)
+    except ET.XMLSyntaxError as e:
+
+        data = re.sub('<\\?.*?\\?>', '', data)
+        xml_tree = ET.fromstring(data)
 
     template = XMLUtil.Template(template_name)
 
-    extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree.getroot())
+    extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree)
 
     extracted_xml = PostProcessing.apply_all(extracted_xml, template.post_process_queue)
 
