@@ -51,9 +51,9 @@ def xml_to_string(extracted_xml):
 
 
 def repeating_structure_tag_match(pattern_from_templ, string_from_xml):
-    # if you said "any namespace (i.e. '{*}'), this changes it to actual regex that accepts any namespace
+    # if you said "any namespace" (that is, '{*}'), this changes it to actual regex that accepts any namespace
     comparing_tag = pattern_from_templ.replace('{*}', '^{.*}')
-    return re.match(comparing_tag, string_from_xml)
+    return re.match('^'+comparing_tag+'$', string_from_xml)
 
 class Template:
     def __init__(self, template_name):

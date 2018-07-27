@@ -120,7 +120,7 @@ def extract_from_xml_section(template, xml):
             for xml_child in xml:
                 sub_element = extract_from_xml_section(template_children, xml_child)
 
-                # recursive call could've returned None (i.e.: XML tag is not in the specific level of the template)
+                # recursive call could've returned None (i.e.: XML tag is not in the speciextract from payr.xml using IT0000 to Nonefic level of the template)
                 if sub_element is not None:
                     new_el.append(sub_element)
 

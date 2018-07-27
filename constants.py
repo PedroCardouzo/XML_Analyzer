@@ -1,6 +1,6 @@
 version = '0.3.1'
-base_filepath = "../work_area/"
-config_filepath = "../work_area/config.xacfg"
+base_filepath = "../SAP_XMLs/"
+config_filepath = "../SAP_XMLs/config.xacfg"
 codification = 'UTF-8'
 # extracted from the 'syntax' section of the readme
 # todo: change the "how to not write to a file" idea

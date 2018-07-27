@@ -1,0 +1,18 @@
+<config>
+    <templ1>
+        <template>
+            <tag_i_want>
+                <another_tag_i_want></another_tag_i_want>
+            </tag_i_want>
+        </template>
+
+        <post_processing>default</post_processing>
+    </templ1>
+    <templ2>
+        <template>
+            <something>
+                <only_this_subtag></only_this_subtag>
+            </something>
+        </template>
+    </templ2>
+</config>
