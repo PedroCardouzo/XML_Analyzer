@@ -10,17 +10,18 @@ import xml.dom.minidom as minidom
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
 def find_first_common_parent(xml, tag):
     candidates = xml.findall('.//' + tag)
-    acc = '/..'
+    acc = ''
     while len(candidates) > 1:
         candidates = set(xml.findall('.//' + tag + acc))
         acc += '/..'
 
     # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
-    top_level = next(iter(candidates))
-    if top_level is None:
+    try:
+        top_level = next(iter(candidates))
+    except StopIteration as e:
         raise NoUniqueRootElementException(candidates)
-    else:
-        return top_level
+
+    return top_level
 
 
 # given a string that is a valid xml, transforms it into a compacted xml notation, removing whitespaces.
