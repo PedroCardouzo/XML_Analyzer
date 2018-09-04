@@ -14,7 +14,7 @@ def parse(input_string):
     if re.match('^extract from ', input_string):
         return parse_for_call_extraction(input_string[13:])
     elif re.match('^:: ', input_string):
-        return call_extraction(input_string[:3].split(' '))
+        return call_extraction(input_string[3:].split(' '))
     elif re.match('^filter ', input_string):
         return parse_for_call_filter(input_string[7:])
     elif re.match('^\$ ', input_string):
