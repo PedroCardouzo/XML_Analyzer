@@ -1,5 +1,6 @@
 from src import XMLUtil
 from src.Structures import ConditionalTuple
+import re
 
 
 # filter_xml_tree :: [ConditionalTuple] Element -> Element
@@ -33,7 +34,7 @@ def filter_xml_tree(conditions, xml):
 #           removing itself from the parent Element if condition is not met
 # if it is not, it calls the function recursively to its children
 def filter_xml(condition, comp_func, sub_xml, parent):
-    if XMLUtil.repeating_structure_tag_match(condition.candidate, sub_xml.tag):
+    if re.match(condition.candidate, sub_xml.tag):
         if not comp_func(sub_xml):
             parent.remove(sub_xml)
     else:
