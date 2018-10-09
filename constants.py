@@ -1,6 +1,6 @@
 version = '0.4.0'
-base_filepath = "../SAP_XMLs/"
-config_filepath = "../SAP_XMLs/config.xacfg"
+base_filepath = "./"
+config_filepath = "./config.xacfg"  # default but can be changed (see Main.py)
 codification = 'UTF-8'
 # extracted from the 'syntax' section of the readme
 # todo: change the "how to not write to a file" idea

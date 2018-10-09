@@ -67,7 +67,7 @@ def extract_template_data_from_xml(template, xml):
 # from the template and then extracts data from it using the template
 def extract_from_xml(repeating_structure, xml_section):
 
-    if re.match(repeating_structure.tag, xml_section.tag):
+    if re.match('({.*})?'+repeating_structure.tag, xml_section.tag):
         return extract_from_xml_section([repeating_structure], xml_section)
     else:
         contentless = True
@@ -98,7 +98,7 @@ def extract_from_xml(repeating_structure, xml_section):
 #       d -> max level of template (how deep the XML parsed tree of the template is)
 def extract_from_xml_section(template, xml):
     # each template tag should be unique, therefore templ should have size <= 1 after this
-    templ = [y for y in template if re.match(y.tag, xml.tag)]
+    templ = [y for y in template if re.match('^({.*})?'+y.tag+'$', xml.tag)]
 
     # validation ::
     if templ == []:  # XML tag is not in the current level of template

@@ -1,5 +1,5 @@
 from src.XMLExtractorException import NoUniqueRootElementException, NotUniqueTemplateException, \
-     InnerTemplateNotFoundException, TemplateNotFoundException
+    InnerTemplateNotFoundException, TemplateNotFoundException
 import re
 import lxml.etree as ET
 import constants
@@ -9,17 +9,14 @@ import xml.dom.minidom as minidom
 # find_first_common_parent :: Element String -> Element | context: lxml.etree.Element
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
 def find_first_common_parent(xml, tag):
-
-
     if re.match(tag, xml.tag):  # if the root tag is the tag we are looking for, it is the selected candidate
         candidates = [xml]
     else:
-        candidates = xml.findall('.//' + tag)
+        candidates = xml.findall('.//{*}' + tag)
         acc = ''
         while len(candidates) > 1:
-            candidates = set(xml.findall('.//' + tag + acc))
+            candidates = set(xml.findall('.//{*}' + tag + acc))
             acc += '/..'
-
 
     # here we have the higher level element which is unique and contains every occurrence of the cond.candidate
     try:
@@ -42,6 +39,7 @@ def compress_xml(xml):
 
 
 # given a string that is a valid xml, it indents it
+# returns a string if it receives a string or an ET.Element
 def indent_xml(xml):
     if type(xml) is str:
         return minidom.parseString(compress_xml(xml)).toprettyxml()
@@ -56,11 +54,13 @@ def indent_xml(xml):
 def xml_to_string(extracted_xml):
     return ET.tostring(extracted_xml, method='html').decode(constants.codification)
 
+
 # legacy: code not used anymore (should not) as now it is required to actually provide regex inside {}
 def repeating_structure_tag_match(pattern_from_templ, string_from_xml):
     # if you said "any namespace" (that is, '{*}'), this changes it to actual regex that accepts any namespace
     comparing_tag = pattern_from_templ.replace('{*}', '^{.*}')
-    return re.match('^'+comparing_tag+'$', string_from_xml)
+    return re.match('^' + comparing_tag + '$', string_from_xml)
+
 
 class Template:
     def __init__(self, template_name):

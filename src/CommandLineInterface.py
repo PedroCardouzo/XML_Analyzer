@@ -44,7 +44,7 @@ def call_extraction(args):
         data = file.read()
     try:
         xml_tree = ET.fromstring(data)
-    except ET.XMLSyntaxError as e:
+    except (ET.XMLSyntaxError, ValueError) as e:
 
         data = re.sub('<\\?.*?\\?>', '', data)
         xml_tree = ET.fromstring(data)
