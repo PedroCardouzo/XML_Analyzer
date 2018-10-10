@@ -8,6 +8,8 @@ from src import XMLExtractor
 from src import XMLFilter
 from src import XMLUtil
 from src import PostProcessing
+from src import PreProcessing
+
 
 
 def parse(input_string):
@@ -51,7 +53,9 @@ def call_extraction(args):
 
     template = XMLUtil.Template(template_name)
 
-    extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), xml_tree)
+    pre_processed_xml_tree = PreProcessing.apply_all(xml_tree, template.pre_process_queue)
+
+    extracted_xml = XMLExtractor.extract_template_data_from_xml(template.get_template(), pre_processed_xml_tree)
 
     extracted_xml = PostProcessing.apply_all(extracted_xml, template.post_process_queue)
 

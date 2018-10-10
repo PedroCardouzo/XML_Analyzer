@@ -9,11 +9,13 @@ import xml.dom.minidom as minidom
 # find_first_common_parent :: Element String -> Element | context: lxml.etree.Element
 # finds the first Element (going from leaves to root) that contains every occurrence of an Element with tag 'tag'
 def find_first_common_parent(xml, tag):
-    if re.match(tag, xml.tag):  # if the root tag is the tag we are looking for, it is the selected candidate
+    # if the root tag is the tag we are looking for, it is the selected candidate
+    if repeating_structure_tag_match(tag, xml.tag):
         candidates = [xml]
     else:
         candidates = xml.findall('.//{*}' + tag)
         acc = ''
+        tag = re.sub('{\*}', '', tag)
         while len(candidates) > 1:
             candidates = set(xml.findall('.//{*}' + tag + acc))
             acc += '/..'
@@ -55,17 +57,19 @@ def xml_to_string(extracted_xml):
     return ET.tostring(extracted_xml, method='html').decode(constants.codification)
 
 
-# legacy: code not used anymore (should not) as now it is required to actually provide regex inside {}
+# this is needed as ET.Element.find will not accept actual regex in the namespace
 def repeating_structure_tag_match(pattern_from_templ, string_from_xml):
-    # if you said "any namespace" (that is, '{*}'), this changes it to actual regex that accepts any namespace
-    comparing_tag = pattern_from_templ.replace('{*}', '^{.*}')
-    return re.match('^' + comparing_tag + '$', string_from_xml)
+    # # if you said "any namespace" (that is, '{*}'), this changes it to actual regex that accepts any namespace
+    # comparing_tag = pattern_from_templ.replace('{*}', '{.*}')
+    # ----> for now im not considering namespaces
+    return re.match('^{.*}' + pattern_from_templ + '$', string_from_xml)
 
 
 class Template:
     def __init__(self, template_name):
 
         self.template = None
+        self.pre_process_queue = None
         self.post_process_queue = None
 
         with open(constants.config_filepath) as file:
@@ -79,6 +83,7 @@ class Template:
                 raise NotUniqueTemplateException(template_name)
 
         self.set_template(root)
+        self.create_pre_processing_queue(root)
         self.create_post_processing_queue(root)
 
     def set_template(self, element_tree):
@@ -87,6 +92,16 @@ class Template:
             self.template = self.template[0]  # unwrap
         else:
             raise InnerTemplateNotFoundException(element_tree.tag)
+
+    def create_pre_processing_queue(self, element_tree):
+        self.pre_process_queue = element_tree.findall('./pre_processing')
+        if len(self.pre_process_queue) == 1:
+            self.pre_process_queue = self.pre_process_queue[0]  # unwrap
+        elif len(self.pre_process_queue) == 0:
+            self.pre_process_queue = '<pre_processing>default</pre_processing>'
+        else:
+            print("more than one post processing found. Assuming default post processing")
+            self.pre_process_queue = '<pre_processing>default</pre_processing>'
 
     def create_post_processing_queue(self, element_tree):
         self.post_process_queue = element_tree.findall('./post_processing')

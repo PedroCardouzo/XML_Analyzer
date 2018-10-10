@@ -1,9 +1,11 @@
 from src import XMLAnalyzerException
+import lxml.etree as ET
 from src.Structures import *
 from src import XMLFilter
 from src import XMLUtil
+import constants
 import re
-
+from src.xml_decoder import html_entitize
 
 def apply_all(xml, post_processes):
     for post_process in post_processes:
@@ -19,8 +21,16 @@ def apply(xml, post_process):
             return XMLUtil.compress_xml(xml)
         elif post_process.text == 'indent':
             return XMLUtil.indent_xml(xml)
+    elif post_process.tag == 'html_entitize':
+        tag_to_entitize = xml.find('.//{*}'+post_process.text)
+        if len(tag_to_entitize) > 1:
+            raise XMLAnalyzerException.TooManyChildrenException(tag_to_entitize.tag, [x.tag for x in tag_to_entitize], 1)
+        content=ET.tostring(tag_to_entitize[0]).decode()
+        tag_to_entitize.text = html_entitize(content)
+        tag_to_entitize.remove(tag_to_entitize[0])  # remove child
+        return xml
     else:
-        raise XMLAnalyzerException.InvalidPostProcessTag(post_process.tag)
+        raise XMLAnalyzerException.InvalidPostProcessTagException(post_process.tag)
 
 
 def apply_filter(extracted_xml, args, args_stack=[]):

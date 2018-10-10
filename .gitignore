@@ -1,2 +1,5 @@
-SAP_XMLs/*
-App/*
+SAP_XMLs
+venv
+work_area
+__pycache__
+.idea

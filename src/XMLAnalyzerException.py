@@ -22,7 +22,18 @@ class InvalidOperatorException(XMLAnalyzerException):
         self.message = "The operator '" + operator + "' is invalid. Please check documentation or use 'help' command"
 
 
-class InvalidPostProcessTag(XMLAnalyzerException):
+class InvalidPostProcessTagException(XMLAnalyzerException):
     def __init__(self, post_process_tag):
         self.message = "The post process tag '" + post_process_tag + "' does not exists. Check available tags or " \
                                                                      "implement it in PostProcessing.py function apply"
+
+class InvalidPreProcessTagException(XMLAnalyzerException):
+    def __init__(self, pre_process_tag):
+        self.message = "The pre process tag '" + pre_process_tag + "' does not exists. Check available tags or " \
+                                                                     "implement it in PreProcessing.py function apply"
+
+class TooManyChildrenException(XMLAnalyzerException):
+    def __init__(self, tag, children_tag, expected_number):
+        self.message = "Too many children nodes in node '" + tag + "'. Expected" + str(expected_number) + ", found " + \
+            str(len(children_tag)) + ', namely ' + str(children_tag)
+
